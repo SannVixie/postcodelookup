@@ -1,0 +1,54 @@
+<div class="text-center padding-all-30">
+  <!-- USER ENTERS POSTCODES E.G BT43 7QA -->
+  <input type="text" #postcodeValue>
+  <br><br>
+  <!-- BUTTON TO ACTIVATE THE SEARCH OF THE QUERIED POSTCODE FROM #postcodeValue -->
+  <button (click)="filter_postcode(postcodeValue.value)">
+    Look up Postcode
+  </button>
+  <br><br>  
+  <!-- OUTPUT DETAILS FOR QUERIED POSTCODES IF DETAILS WERE RETURNED IF NOT THEN SHOW ERROR -->
+  <div *ngIf="locationInfo; else theError">
+    <h2>Location Details for : {{ locationInfo.result.postcode }}</h2>
+    <div class="mini-info">
+      <strong>Country</strong>: {{ locationInfo.result.country }}
+    </div>
+    <div class="mini-info">
+      <strong>Longitude</strong>: {{ locationInfo.result.longitude }}
+    </div>
+    <div class="mini-info">
+      <strong>Latitude</strong>: {{ locationInfo.result.latitude }}
+    </div>
+    <div class="mini-info">
+      <strong>NHS Authority</strong>: {{ locationInfo.result.lsoa }}
+    </div>
+    <div class="mini-info">
+      <strong>Layer Super Output Area</strong>: {{ locationInfo.result.country }}
+    </div>
+    <div class="mini-info">
+      <strong>Parliamentary Constituency</strong>: {{ locationInfo.result.parliamentary_constituency }}
+    </div>
+    <div class="mini-info">
+      <strong>District</strong>: {{ locationInfo.result.admin_district }}
+    </div>
+    <div class="mini-info">
+      <strong>Ward</strong>: {{ locationInfo.result.admin_ward }}
+    </div>
+    <div class="mini-info">
+      <strong>Nomenclature of Units for Territorial Statistic</strong>: {{ locationInfo.result.nuts }}
+    </div>
+    <br>
+    <!-- ACTION TO SHOW ALL INFORMATION FOR QUERIED POSTCODE -->
+    <button (click)="showAll()">
+      Show all Information for {{ locationInfo.result.postcode }} in json format
+    </button>
+    <!-- SHOW ALL DETAILS -->
+    <div *ngIf="isShowAllInfo">
+      <pre>{{locationInfo | json}}</pre>
+    </div>
+  </div>
+  <!-- OUTPUT ERROR -->
+  <ng-template #theError>
+    {{errorOutput}}
+  </ng-template>
+</div>
